@@ -61,5 +61,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             docker rm -f cicd
+            docker rmi -f ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.head_ref || github.ref_name }} 
             docker run -d -p 25555:3000 --name cicd ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.head_ref || github.ref_name }} 
             echo DEPLOY DONE...
